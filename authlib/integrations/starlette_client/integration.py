@@ -37,9 +37,12 @@ class StarletteIntegration(FrameworkIntegration):
     ):
         key_prefix = f"_state_{self.name}_"
         key = f"{key_prefix}{state}"
+        print('THIS IS CACHE', self.cache)
         if self.cache:
+            print('SET STATE DATE USING CACHE')
             await self.cache.set(key, json.dumps({"data": data}), self.expires_in)
         elif session is not None:
+            print('SET STATE DATE USING SESSION')
             # clear old state data to avoid session size growing
             for old_key in list(session.keys()):
                 if old_key.startswith(key_prefix):
@@ -49,9 +52,12 @@ class StarletteIntegration(FrameworkIntegration):
 
     async def clear_state_data(self, session: Optional[dict[str, Any]], state: str):
         key = f"_state_{self.name}_{state}"
+        print('THIS IS CACHE', self.cache)
         if self.cache:
+            print('CLEAR STATE DATA USING CACHE')
             await self.cache.delete(key)
         elif session is not None:
+            print('CLEAR STATE DATA USING SESSION')
             session.pop(key, None)
             self._clear_session_state(session)
 

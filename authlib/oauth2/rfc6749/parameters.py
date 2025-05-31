@@ -147,6 +147,8 @@ def parse_authorization_code_response(uri, state=None):
         raise MissingCodeException()
 
     params_state = params.get("state")
+    print('PARAMS STATE', params_state)
+    print('STATE', state)
     if state and params_state != state:
         raise MismatchingStateException()
 
