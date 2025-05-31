@@ -80,6 +80,7 @@ class StarletteOAuth2App(
 
         state_data = await self.framework.get_state_data(session, params.get("state"))
         await self.framework.clear_state_data(session, params.get("state"))
+        print('STATE DATA', state_data)
         params = self._format_state_params(state_data, params)
 
         claims_options = kwargs.pop("claims_options", None)
