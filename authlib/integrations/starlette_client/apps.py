@@ -78,6 +78,7 @@ class StarletteOAuth2App(
         else:
             session = request.session
 
+        print('PARAM STATE: ', params.get('state'))
         state_data = await self.framework.get_state_data(session, params.get("state"))
         await self.framework.clear_state_data(session, params.get("state"))
         print('STATE DATA', state_data)

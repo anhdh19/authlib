@@ -9,6 +9,7 @@ from ..base_client import FrameworkIntegration
 
 class StarletteIntegration(FrameworkIntegration):
     async def _get_cache_data(self, key: Hashable):
+        print('GET STATE DATA FROM KEY: ', key)
         value = await self.cache.get(key)
         if not value:
             return None
@@ -22,8 +23,10 @@ class StarletteIntegration(FrameworkIntegration):
     ) -> dict[str, Any]:
         key = f"_state_{self.name}_{state}"
         if self.cache:
+            print('SET STATE DATE USING CACHE WITH KEY: ', key)
             value = await self._get_cache_data(key)
         elif session is not None:
+            print('SET STATE DATE USING SESSION WITH KEY: ', key)
             value = session.get(key)
         else:
             value = None
@@ -39,10 +42,10 @@ class StarletteIntegration(FrameworkIntegration):
         key = f"{key_prefix}{state}"
         print('THIS IS CACHE', self.cache)
         if self.cache:
-            print('SET STATE DATE USING CACHE')
+            print('SET STATE DATA USING CACHE WITH KEY: ', key)
             await self.cache.set(key, json.dumps({"data": data}), self.expires_in)
         elif session is not None:
-            print('SET STATE DATE USING SESSION')
+            print('SET STATE DATA USING SESSION WITH KEY: ', key)
             # clear old state data to avoid session size growing
             for old_key in list(session.keys()):
                 if old_key.startswith(key_prefix):
@@ -54,10 +57,10 @@ class StarletteIntegration(FrameworkIntegration):
         key = f"_state_{self.name}_{state}"
         print('THIS IS CACHE', self.cache)
         if self.cache:
-            print('CLEAR STATE DATA USING CACHE')
+            print('CLEAR STATE DATA USING CACHE WITH KEY: ', key)
             await self.cache.delete(key)
         elif session is not None:
-            print('CLEAR STATE DATA USING SESSION')
+            print('CLEAR STATE DATA USING SESSION WITH KEY: ', key)
             session.pop(key, None)
             self._clear_session_state(session)
 
