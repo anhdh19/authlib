@@ -6,6 +6,41 @@ Changelog
 
 Here you can see the full list of changes between each Authlib release.
 
+Version 1.6.4
+-------------
+
+**Released on Sep 17, 2025**
+
+- Fix ``InsecureTransportError`` error raising. :issue:`795`
+- Fix ``response_mode=form_post`` with Starlette client. :issue:`793`
+- Validate ``crit`` header value, reject unprotected header in ``crit`` header.
+
+Version 1.6.3
+-------------
+
+**Released on Aug 26, 2025**
+
+- OIDC ``id_token`` are signed according to ``id_token_signed_response_alg``
+  client metadata. :issue:`755`
+
+Version 1.6.2
+-------------
+
+**Released on Aug 23, 2025**
+
+- Temporarily restore ``OAuth2Request`` ``body`` parameter. :issue:`781` :pr:`791`
+- Allow ``127.0.0.1`` in insecure transport mode. :pr:`788`
+- Raise ``MissingCodeException`` when the ``code`` parameter is missing. :issue:`793` :pr:`794`
+- Fix ``id_token`` generation with `EdDSA` algs. :issue:`799` :pr:`800`
+
+Version 1.6.1
+-------------
+
+**Released on Jul 20, 2025**
+
+- Filter key set with additional "alg" and "use" parameters.
+- Restore and deprecate ``OAuth2Request`` ``body`` parameter. :issue:`781`
+
 Version 1.6.0
 -------------
 
